@@ -49,9 +49,7 @@ class WordSearch
   end
 
   def print_output
-    @search.each do |k|
-      puts k.join(', ')
-    end
+    print @search.join(', ')
   end
 end
 WordSearch.new(%w[a z c t v a], 'cat').process
