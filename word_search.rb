@@ -2,14 +2,14 @@ class WordSearch
   def initialize(board, word)
     @word = word.to_s.split('')
     @board = board
-    @search = {}
+    @search = []
   end
 
   def process
     @word.each do |letter|
-      index1 = @board.index letter
-      index2 = @board.reverse.index letter
-      if index1.present? && index2.present? && index1 <= index2
+      left_index = @board.index letter
+      right_index = @board.reverse.index letter
+      if left_index.present? && right_index.present? && left_index <= right_index
         left_operation(letter)
       else
         right_operation(letter)
@@ -20,7 +20,6 @@ class WordSearch
 
   def left_operation(letter)
     r = []
-    r << 'LEFT'
 
     @board.each do |_l|
       k = @board.shift
@@ -29,13 +28,13 @@ class WordSearch
       @board << k
 
       r << 'LEFT'
-      @search[letter] = r
     end
+    r << 'LEFT:' + letter
+    @search << r
   end
 
   def right_operation(letter)
     r = []
-    r << 'RIGHT'
 
     @board.each do |_l|
       k = @board.pop
@@ -44,13 +43,14 @@ class WordSearch
       @board.unshift(k)
 
       r << 'RIGHT'
-      @search[letter] = r
     end
+    r << 'RIGHT:' + letter
+    @search << r
   end
 
   def print_output
-    @search.each do |k, v|
-      puts v.join(', ') + ':' + k
+    @search.each do |k|
+      puts k.join(', ')
     end
   end
 end
