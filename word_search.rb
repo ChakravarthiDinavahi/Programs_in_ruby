@@ -20,14 +20,18 @@ class WordSearch
 
   def left_operation(letter, index)
     r = []
-    @board += @board.shift(index)
+    oper =  @board.shift(index)
+    @board.shift
+    @board += oper
     r << 'LEFT, ' * index + 'LEFT:' + letter
     @search << r
   end
 
   def right_operation(letter, index)
     r = []
-    @board.unshift(*@board.pop(index))
+    oper = @board.pop(index)
+    @board.pop
+    @board.unshift(*oper)
     r << 'RIGHT, ' * index + 'RIGHT:' + letter
     @search << r
   end
@@ -36,4 +40,7 @@ class WordSearch
     puts @search.join(', ')
   end
 end
+
 WordSearch.new(%w[a z c t v a], 'cat').process
+WordSearch.new(%w[a z c b t v a], 'bat').process
+WordSearch.new(%w[a z c b t v a], 'bata').process
