@@ -1,0 +1,3 @@
+mail -s "subject here" chakravarthi.dinavahi@gmail.com <<< "message"
+
+a =system("free | grep Mem | awk '{ printf( $4/$2 * 100.0) }'")
